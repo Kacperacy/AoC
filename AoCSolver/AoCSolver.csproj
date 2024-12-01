@@ -13,4 +13,10 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Day01\Day01.cs">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Compile>
+    </ItemGroup>
+
 </Project>
