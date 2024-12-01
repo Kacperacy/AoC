@@ -9,13 +9,14 @@ var solvers = Assembly.GetExecutingAssembly().GetTypes()
 
 solvers.Last().Solve();
         
-Console.WriteLine("Press A to run all solvers, or enter a specific day to run that solver.");
         
 while (true)
 {
+    Console.WriteLine("\nPress A to run all solvers, or enter a specific day to run that solver.");
     var input = Console.ReadLine();
     if (input == "A")
     {
+        Console.WriteLine("Running all solvers...");
         foreach (var solver in solvers)
         {
             solver.Solve();
