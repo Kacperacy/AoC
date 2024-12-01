@@ -1,4 +1,4 @@
-namespace AoCSolver.Day1;
+namespace AoCSolver.Day01;
 
 public class Day01() : Solver<List<List<int>>, int>("Day01/input.txt")
 {
