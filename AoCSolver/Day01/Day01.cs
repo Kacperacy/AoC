@@ -20,13 +20,9 @@ public class Day01() : Solver<List<List<int>>, int>("Day01/input.txt")
         return [columns.col1, columns.col2];
     }
 
-    public override int Part1(List<List<int>> data)
-    {
-        return data[0].Zip(data[1], (a, b) => Math.Abs(a - b)).Sum();
-    }
+    public override int Part1(List<List<int>> data) =>
+        data[0].Zip(data[1], (a, b) => Math.Abs(a - b)).Sum();
 
-    public override int Part2(List<List<int>> data)
-    {
-        return data[0].Sum(x => x * data[1].Count(c => c == x));
-    }
+    public override int Part2(List<List<int>> data) =>
+        data[0].Sum(x => x * data[1].Count(c => c == x));
 }
