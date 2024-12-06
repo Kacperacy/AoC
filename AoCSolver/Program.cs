@@ -8,26 +8,3 @@ var solvers = Assembly.GetExecutingAssembly().GetTypes()
     .ToList();
 
 solvers.Last().Solve();
-        
-        
-while (true)
-{
-    Console.WriteLine("\nPress A to run all solvers, or enter a specific day to run that solver.");
-    var input = Console.ReadLine();
-    if (input == "A")
-    {
-        Console.WriteLine("Running all solvers...");
-        foreach (var solver in solvers)
-        {
-            solver.Solve();
-        }
-    }
-    else if (int.TryParse(input, out var day) && day >= 1)
-    {
-        solvers.First(x => x.GetType().Name[^2..] == day.ToString()).Solve();
-    }
-    else
-    {
-        Console.WriteLine("Invalid input.");
-    }
-}
