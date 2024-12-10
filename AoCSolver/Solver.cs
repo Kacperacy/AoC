@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace AoCSolver;
 
-public abstract class Solver<TInput, TResult>(string? inputPath) : SolverBase
+public abstract class Solver<TInput, TResult>(string? inputPath) : SolverBase where TInput : allows ref struct
 {
     private string InputPath { get; set; } = inputPath ?? "input.txt";
     private Stopwatch StopwatchAllParts { get; set; } = new Stopwatch();
