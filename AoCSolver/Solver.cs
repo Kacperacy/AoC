@@ -28,7 +28,7 @@ public abstract class Solver<TInput, TResult>(string? inputPath) : SolverBase wh
         }
         catch (Exception e)
         {
-            Console.WriteLine("Part 1 error: " + e.Message);
+            Console.WriteLine("Part 1 error: " + e.Message + e.StackTrace);
         }
         Stopwatch.Stop();
         partTimes.Add(Stopwatch.Elapsed);
