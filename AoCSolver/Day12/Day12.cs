@@ -10,18 +10,19 @@ public class Day12() : Solver<Dictionary<Day12.Point, char>, int>("Day12/input.t
             'D' => this with { Y = Y + 1 },
             'L' => this with { X = X - 1 },
             'R' => this with { X = X + 1 },
+            _ => this
         };
     }
-    
+
     public override Dictionary<Point, char> PrepareData(List<string> input)
     {
         var map = new Dictionary<Point, char>();
 
-        for (var x = 0; x < input.Count; x++)
+        for (var y = 0; y < input.Count; y++)
         {
-            for (var y = 0; y < input[x].Length; y++)
+            for (var x = 0; x < input[y].Length; x++)
             {
-                map[new Point(x, y)] = input[x][y];
+                map[new Point(x, y)] = input[y][x];
             }
         }
 
@@ -30,20 +31,15 @@ public class Day12() : Solver<Dictionary<Day12.Point, char>, int>("Day12/input.t
 
     public override int Part1(Dictionary<Point, char> farm)
     {
-        var keys = farm.Keys.ToHashSet();
-        var price = 0;
-
-        while (keys.Count > 0)
-        {
-            var flood = Flood(farm, keys.First());
-            price += flood.Count * FencePrice(farm, flood, farm[keys.First()]);
-            keys.ExceptWith(flood);
-        }
-
-        return price;
+        return CalculatePrice(farm, FencePrice);
     }
 
     public override int Part2(Dictionary<Point, char> farm)
+    {
+        return CalculatePrice(farm, FencePriceDiscount);
+    }
+
+    private int CalculatePrice(Dictionary<Point, char> farm, Func<Dictionary<Point, char>, HashSet<Point>, char, int> fencePriceFunc)
     {
         var keys = farm.Keys.ToHashSet();
         var price = 0;
@@ -51,13 +47,13 @@ public class Day12() : Solver<Dictionary<Day12.Point, char>, int>("Day12/input.t
         while (keys.Count > 0)
         {
             var flood = Flood(farm, keys.First());
-            price += flood.Count * FencePriceDiscount(farm, flood, farm[keys.First()]);
+            price += flood.Count * fencePriceFunc(farm, flood, farm[keys.First()]);
             keys.ExceptWith(flood);
         }
 
         return price;
     }
-    
+
     private HashSet<Point> Flood(Dictionary<Point, char> farm, Point start)
     {
         var type = farm[start];
@@ -83,7 +79,6 @@ public class Day12() : Solver<Dictionary<Day12.Point, char>, int>("Day12/input.t
 
         return flood;
     }
-
 
     private int FencePrice(Dictionary<Point, char> farm, HashSet<Point> flood, char type)
     {
@@ -121,7 +116,7 @@ public class Day12() : Solver<Dictionary<Day12.Point, char>, int>("Day12/input.t
                 }
             }
         }
-        
+
         var count = 0;
 
         foreach (var (p, t) in fence)
