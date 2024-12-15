@@ -44,7 +44,7 @@ public abstract class Solver<TInput, TResult>(string? inputPath) : SolverBase wh
         }
         catch (Exception e)
         {
-            Console.WriteLine("Part 2 error: " + e.Message);
+            Console.WriteLine("Part 2 error: " + e.Message + e.StackTrace);
         }
         Stopwatch.Stop();
         partTimes.Add(Stopwatch.Elapsed);
@@ -60,7 +60,7 @@ public abstract class Solver<TInput, TResult>(string? inputPath) : SolverBase wh
 
     public abstract TResult Part1(TInput data);
 
-    public abstract TResult Part2(TInput data);
+    public abstract TResult Part2(TInput widerWarehouse);
 }
 
 public abstract class SolverBase
