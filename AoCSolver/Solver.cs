@@ -60,7 +60,7 @@ public abstract class Solver<TInput, TResult>(string? inputPath) : SolverBase wh
 
     public abstract TResult Part1(TInput data);
 
-    public abstract TResult Part2(TInput widerWarehouse);
+    public abstract TResult Part2(TInput data);
 }
 
 public abstract class SolverBase
