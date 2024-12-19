@@ -36,7 +36,7 @@ public class Day18() : Solver<List<Day18.Point>, string>("Day18/input.txt")
      {
           var start = new Point(0, 0);
           var end = new Point(70, 70);
-          for (var i = 1; i <= data.Count; i++)
+          for (var i = 1024; i <= data.Count; i++)
           {
                if (FindPath(data.Take(i).ToHashSet(), start, end) == -1)
                {
