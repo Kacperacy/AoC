@@ -1,28 +1,52 @@
 namespace AoCSolver._2025.Day01;
 
-public class Day01 : Solver<List<List<int>>, int>
+public class Day01 : Solver<List<(char, int)>, int>
 {
-    public override List<List<int>> PrepareData(List<string> input)
+    public override List<(char, int)> PrepareData(List<string> input)
     {
-        var columns = input
-            .Select(line => line.Split("   ")
-                .Select(int.Parse).ToList())
-            .Aggregate((col1: new List<int>(), col2: new List<int>()), (acc, row) =>
-            {
-                acc.col1.Add(row[0]);
-                acc.col2.Add(row[1]);
-                return acc;
-            });
-
-        columns.col1.Sort();
-        columns.col2.Sort();
-
-        return [columns.col1, columns.col2];
+        var result = input
+            .Select(line => (line[0], int.Parse(line[1..])))
+            .ToList();
+        
+        return result;
     }
 
-    public override int Part1(List<List<int>> data) =>
-        data[0].Zip(data[1], (a, b) => Math.Abs(a - b)).Sum();
+    public override int Part1(List<(char, int)> data)
+    {
+        var dial = 50;
+        var result = 0;
 
-    public override int Part2(List<List<int>> data) =>
-        data[0].Sum(x => x * data[1].Count(c => c == x));
+        foreach (var move in data)
+        {
+            var sign = move.Item1 == 'R' ? 1 : -1;
+            
+            dial += move.Item2 * sign;
+
+            dial %= 100;
+            
+            if (dial == 0) result++;
+        }
+        
+        return result;
+    }
+
+    public override int Part2(List<(char, int)> data)
+    {
+        var dial = 50;
+        var result = 0;
+
+        foreach (var move in data)
+        {
+            var sign = move.Item1 == 'R' ? 1 : -1;
+
+            for (int i = 0; i < move.Item2; i++)
+            {
+                dial += sign;
+                dial %= 100;
+                if (dial == 0) result++;
+            }
+        }
+        
+        return result;
+    }
 }
